@@ -17,7 +17,7 @@ public interface ClienteService {
 //    void getFeed(@Path("user") String user,Callback<Cliente> response);
 
     @FormUrlEncoded
-    @POST("/WebSites/Meexin/Usensus/Login/login.php")
+    @POST("/USENSUS/Login/login.php")
     public void postLogin(@Field("username") String username, @Field("password") String password, Callback<Cliente> callback);
 
     @Headers("Cache-Control: max-age=1")

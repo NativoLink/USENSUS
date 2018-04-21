@@ -54,6 +54,9 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
 
     private OnFragmentInteractionListener mListener;
 
+    private ArrayList<ILineDataSet> lineDataSets1;
+    private ArrayList<ILineDataSet> lineDataSets2;
+    private ArrayList<ILineDataSet> lineDataSets3;
     private LineChart mChart;
     private Spinner spinner;
 
@@ -94,9 +97,9 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
         mChart.getXAxis().setAxisMaximum(13);
         //</editor-fold>
 
-        final ArrayList<ILineDataSet> lineDataSets1 = getRandomDataSets();
-        final ArrayList<ILineDataSet> lineDataSets2 = getRandomDataSets();
-        final ArrayList<ILineDataSet> lineDataSets3 = getRandomDataSets();
+        lineDataSets1 = getRandomDataSets();
+        lineDataSets2 = getRandomDataSets();
+        lineDataSets3 = getRandomDataSets();
 
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -119,7 +122,7 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
         items.add("RED local");
 
         //===================> CONSULTAR REDES <===================
-        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://linksdominicana.com/").build();
+        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://10.0.0.9/").build();
         RedService servicio = restadpter.create(RedService.class);
         servicio.getRedes(new retrofit.Callback<List<Red>>() {
             @Override
@@ -171,6 +174,7 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
         humedad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                lineDataSets1 = getRandomDataSets()
                 mChart.setData(new LineData(lineDataSets1.get(0)));
                 mChart.notifyDataSetChanged();
                 mChart.invalidate();
@@ -219,7 +223,7 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
         final Random random = new Random();
 
         // ===================> CONSULTAR SENSORES <===================
-        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://linksdominicana.com/").build();
+        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://10.0.0.9/").build();
         SensorService servicio = restadpter.create(SensorService.class);
 
         servicio.getSensores(new retrofit.Callback<List<Sensor>>() {
@@ -234,7 +238,9 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
                     yAxes1.add(new Entry(i, humedad));
                     yAxes3.add(new Entry(i, uv));
                     yAxes4.add(new Entry(i, co2));
+                    Log.v("SENSORES","LLENANDO DATOS ");
                 }
+                Toast.makeText(getContext(), "LLENANDO DATOS CON SENSORES", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -245,12 +251,12 @@ public class VistaContacto extends Fragment implements SeekBar.OnSeekBarChangeLi
         });
 //        ===================> CONSULTAR SENSORES  <================| END |===
 
-        for (int i=0;i<2;i++){
-            yAxes1.add(new Entry(i, random.nextFloat()));
-            yAxes2.add(new Entry(i, random.nextFloat()));
-            yAxes3.add(new Entry(i, random.nextFloat()));
-            yAxes4.add(new Entry(i, random.nextFloat()));
-        }
+//        for (int i=0;i<2;i++){
+//            yAxes1.add(new Entry(i, random.nextFloat()));
+//            yAxes2.add(new Entry(i, random.nextFloat()));
+//            yAxes3.add(new Entry(i, random.nextFloat()));
+//            yAxes4.add(new Entry(i, random.nextFloat()));
+//        }
 
         LineDataSet lineDataSet1 = new LineDataSet(yAxes1, "Humedad");
         lineDataSet1.setColor(Color.BLUE);

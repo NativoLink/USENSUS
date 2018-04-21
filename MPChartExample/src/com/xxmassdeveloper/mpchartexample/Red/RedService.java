@@ -14,10 +14,10 @@ import retrofit.http.Query;
  */
 public interface RedService {
 
-    @GET("/WebSites/Meexin/Usensus/Red/getRed.php")
+    @GET("/USENSUS/Red/getRed.php")
     void getRede(@Query("id_red") int id_red,Callback<Modulo> callback);
 
-    @GET("/WebSites/Meexin/Usensus/Red/getRedes.php")
+    @GET("/USENSUS/Red/getRedes.php")
     void getRedes(Callback<List<Red>> callback);
 
 }

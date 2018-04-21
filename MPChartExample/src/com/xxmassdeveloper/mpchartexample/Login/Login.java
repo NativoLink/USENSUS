@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
                         pb.setVisibility(View.VISIBLE);//HACEMOS VISIBLE EL PROGRESSBAR PARA INDICAR QUE SE ESTA CARGANDO
 
                         //SE SOLICITA UN ADATER EL CUAL ES EL ENCARGADO DE LA CONEXION DESDE LA APLICACION
-                        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://linksdominicana.com/").build();
+                        RestAdapter restadpter = new RestAdapter.Builder().setEndpoint("http://10.0.0.9/").build();
                         ClienteService servicio = restadpter.create(ClienteService.class);//SE INICIA UN NUEVO SERVICIO EN ESTE CASO DE TIPO CLIENTE
 
 
@@ -95,6 +95,7 @@ public class Login extends AppCompatActivity {
                         servicio.postLogin(name_user, pass_user, new Callback<Cliente>() {
                         @Override
                         public void success(Cliente cliente, Response response) {
+                            Log.v("USENSUS","=====| USENSUS |==========>"+response.getStatus()+"<--------");
                             if (cliente.isLogin().equals("true")) { //COMPROBAMOS QUE EL SERVICO NOS RETORNA QUE SI EXITE ESTE CLIENTE
 //                                Toast.makeText(Login.this, cliente.getApellido(), Toast.LENGTH_LONG).show();
 
